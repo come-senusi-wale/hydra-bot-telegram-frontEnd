@@ -39,7 +39,7 @@ export const transferToken = async(telegramId: any,mintAdress: any, recipientAdd
     return response
 }
 
-export const updateSolanaConfig = async(telegramId: any, buyerSlippage: any, takeProfit: any, stopLoss: number, sellSlippage: any, bagToMoon: any, minLiquidity: any, maxLiquidity: number) => {
+export const updateSolanaConfig = async(telegramId: any, buyerSlippage: number, takeProfit: number, stopLoss: number, sellSlippage: number, bagToMoon: number, minLiquidity: number, maxLiquidity: number, qouteAmount: number) => {
     const response = await fetch(`${baseUrl}/solana/update/config`, {
         method: 'POST',
         headers: {
@@ -54,7 +54,8 @@ export const updateSolanaConfig = async(telegramId: any, buyerSlippage: any, tak
             sellSlippage,
             bagToMoon,
             minLiquidity,
-            maxLiquidity
+            maxLiquidity,
+            qouteAmount
         }),
     });
 

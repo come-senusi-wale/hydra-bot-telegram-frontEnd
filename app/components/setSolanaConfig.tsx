@@ -18,33 +18,39 @@ export const SetSolanaConfig = () => {
     const [bagToMoon, setBagToMoon] = useState('')
     const [minLiquidity, setMinLiquidity] = useState('')
     const [maxLiquidity, setMaxLiquidity] = useState('')
+    const [qouteAmount, setQouteAmount] = useState('')
    
     const updateConfigHandler = async() => {
-        if(!buyerSlippage || !takeProfit || !stopLoss || !sellSlippage || !bagToMoon || !minLiquidity || !maxLiquidity) {
-            toast.error("Fill all the input provided", ), {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 8000
-            };
-            return;
-        }
-        const api = await updateSolanaConfig(telegramId, parseFloat(buyerSlippage), parseFloat(takeProfit), parseFloat(stopLoss), parseFloat(sellSlippage), parseFloat(bagToMoon), parseFloat(minLiquidity), parseFloat(maxLiquidity))
+        try {
 
-        const response = await api.json()
-        const responseStatus = response.status
+            if(!buyerSlippage || !takeProfit || !stopLoss || !sellSlippage || !bagToMoon || !minLiquidity || !maxLiquidity || !qouteAmount) {
+                toast.error("Fill all the input provided", ), {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                };
+                return;
+            }
+            const api = await updateSolanaConfig(telegramId, parseFloat(buyerSlippage), parseFloat(takeProfit), parseFloat(stopLoss), parseFloat(sellSlippage), parseFloat(bagToMoon), parseFloat(minLiquidity), parseFloat(maxLiquidity), parseFloat(qouteAmount))
+            const response = await api.json()
+            const responseStatus = response.status
 
-        if (!responseStatus) {
-            toast.error(response.error[0].message, {
+            if (!responseStatus) {
+                toast.error(response.error[0].message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                });
+                return;
+            }
+    
+            toast.success('Transaction in progress', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 8000
             });
             return;
+            
+        } catch (error) {
+            console.log('error', error)
         }
-
-        toast.success('Transaction in progress', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 8000
-        });
-        return;
     }
 
     return(<>
@@ -84,6 +90,10 @@ export const SetSolanaConfig = () => {
                    <div>
                         <label htmlFor="">Bag to moon</label>
                         <input type="number"  value={bagToMoon} onChange={(e) => setBagToMoon(e.target.value)}/>
+                   </div>
+                   <div>
+                        <label htmlFor="">Qoute amount</label>
+                        <input type="number"  value={qouteAmount} onChange={(e) => setQouteAmount(e.target.value)}/>
                    </div>
                 </div>
                 <div id='submit-btn'>
