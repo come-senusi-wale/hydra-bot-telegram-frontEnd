@@ -3,23 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import  "../style/updateConfig.css";
 import { updateSolanaConfig } from "@/api/wallet";
-import { useRouter } from 'next/router';
 
 
 export const SetSolanaConfig = () => {
-    // const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-    const router = useRouter();
+    const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
     // Get the value of a specific query parameter
-    // const telegramId = queryParams ? queryParams.get('telegramId') : '';
-    const [telegramId, setTelegramId] = useState('');
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const queryParams = new URLSearchParams(window.location.search);
-            setTelegramId(queryParams.get('telegramId') || '');
-        }
-    }, []);
+    const telegramId = queryParams ? queryParams.get('telegramId') : '';
 
     const [buyerSlippage, setBuyerSlippage] = useState('')
     const [takeProfit, setTakeProfit] = useState('')
@@ -57,7 +47,6 @@ export const SetSolanaConfig = () => {
                 autoClose: 8000
             });
             const timer = setTimeout(() => {
-                router.push('/');
                 window.close();
             }, 5000); // 5000 milliseconds = 5 seconds
          
