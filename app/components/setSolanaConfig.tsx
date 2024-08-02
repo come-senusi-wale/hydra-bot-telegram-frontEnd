@@ -46,7 +46,14 @@ export const SetSolanaConfig = () => {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 8000
             });
-            return;
+            const timer = setTimeout(() => {
+                
+                window.close();
+            }, 5000); // 5000 milliseconds = 5 seconds
+          
+              
+            return () => clearTimeout(timer);
+         
             
         } catch (error) {
             console.log('error', error)
