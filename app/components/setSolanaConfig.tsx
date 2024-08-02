@@ -104,7 +104,7 @@ export const SetSolanaConfig = () => {
                    </div>
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}>update</button>
+                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}   style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>update</button>
                 </div>
             </div>
         </section>
