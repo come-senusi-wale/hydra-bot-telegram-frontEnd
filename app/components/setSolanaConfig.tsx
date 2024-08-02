@@ -7,11 +7,19 @@ import { useRouter } from 'next/router';
 
 
 export const SetSolanaConfig = () => {
-    const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    // const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const router = useRouter();
 
     // Get the value of a specific query parameter
-    const telegramId = queryParams ? queryParams.get('telegramId') : '';
+    // const telegramId = queryParams ? queryParams.get('telegramId') : '';
+    const [telegramId, setTelegramId] = useState('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const queryParams = new URLSearchParams(window.location.search);
+            setTelegramId(queryParams.get('telegramId') || '');
+        }
+    }, []);
 
     const [buyerSlippage, setBuyerSlippage] = useState('')
     const [takeProfit, setTakeProfit] = useState('')
@@ -49,7 +57,7 @@ export const SetSolanaConfig = () => {
                 autoClose: 8000
             });
             const timer = setTimeout(() => {
-                // router.push('/');
+                router.push('/');
                 window.close();
             }, 5000); // 5000 milliseconds = 5 seconds
          
