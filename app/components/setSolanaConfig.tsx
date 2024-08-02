@@ -49,7 +49,7 @@ export const SetSolanaConfig = () => {
                 autoClose: 8000
             });
             const timer = setTimeout(() => {
-                router.push('/');
+                // router.push('/');
                 window.close();
             }, 5000); // 5000 milliseconds = 5 seconds
          
