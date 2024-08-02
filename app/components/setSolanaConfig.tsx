@@ -19,15 +19,18 @@ export const SetSolanaConfig = () => {
     const [minLiquidity, setMinLiquidity] = useState('')
     const [maxLiquidity, setMaxLiquidity] = useState('')
     const [qouteAmount, setQouteAmount] = useState('')
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
    
     const updateConfigHandler = async() => {
         try {
+            setIsButtonDisabled(true);
 
             if(!buyerSlippage || !takeProfit || !stopLoss || !sellSlippage || !bagToMoon || !minLiquidity || !maxLiquidity || !qouteAmount) {
                 toast.error("Fill all the input provided", ), {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 };
+                setIsButtonDisabled(false);
                 return;
             }
             const api = await updateSolanaConfig(telegramId, parseFloat(buyerSlippage), parseFloat(takeProfit), parseFloat(stopLoss), parseFloat(sellSlippage), parseFloat(bagToMoon), parseFloat(minLiquidity), parseFloat(maxLiquidity), parseFloat(qouteAmount))
@@ -39,6 +42,7 @@ export const SetSolanaConfig = () => {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 });
+                setIsButtonDisabled(false);
                 return;
             }
     
@@ -100,7 +104,7 @@ export const SetSolanaConfig = () => {
                    </div>
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={updateConfigHandler}>update</button>
+                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}>update</button>
                 </div>
             </div>
         </section>
