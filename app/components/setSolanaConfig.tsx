@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import  "../style/updateConfig.css";
 import { updateSolanaConfig } from "@/api/wallet";
+import { useRouter } from 'next/router';
 
 
 export const SetSolanaConfig = () => {
     const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const router = useRouter();
 
     // Get the value of a specific query parameter
     const telegramId = queryParams ? queryParams.get('telegramId') : '';
@@ -47,14 +49,11 @@ export const SetSolanaConfig = () => {
                 autoClose: 8000
             });
             const timer = setTimeout(() => {
-                
+                router.push('/');
                 window.close();
             }, 5000); // 5000 milliseconds = 5 seconds
-          
-              
-            return () => clearTimeout(timer);
          
-            
+            return () => clearTimeout(timer);
         } catch (error) {
             console.log('error', error)
         }
