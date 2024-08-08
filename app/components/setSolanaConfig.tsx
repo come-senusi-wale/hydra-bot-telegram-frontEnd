@@ -56,7 +56,13 @@ export const SetSolanaConfig = () => {
          
             return () => clearTimeout(timer);
         } catch (error) {
+            toast.error("Unable to perform transaction.", ), {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 8000
+            };
+            setIsButtonDisabled(false);
             console.log('error', error)
+            return
         }
     }
 
