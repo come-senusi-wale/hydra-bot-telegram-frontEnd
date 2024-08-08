@@ -72,7 +72,7 @@ input:focus{
 
 #submit-btn{
     text-align: center;
-    background-color: rgb(21, 130, 227);
+    background-color: rgb(68, 80, 90);
     color: #fff;
     padding: 15px 0;
     border-radius: 20px;
@@ -83,5 +83,5 @@ input:focus{
 
 #submit-btn:hover{
     opacity: 0.7;
-    background-color: rgba(21, 130, 227, 0.7);
+    background-color: rgba(2, 15, 27, 0.7);
 }
