@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import  "../style/updateConfig.css";
+import  "../style/wrapsol.css";
 import { wrapSol } from "@/api/wallet";
 
 
@@ -70,7 +70,7 @@ export const WrapSol = () => {
                    </div>         
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}   style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>swap</button>
+                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}   style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>wrap</button>
                 </div>
             </div>
         </section>
