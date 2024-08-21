@@ -62,3 +62,19 @@ export const updateSolanaConfig = async(telegramId: any, buyerSlippage: number, 
 
     return response
 }
+
+export const wrapSol = async(telegramId: any, amount: number) => {
+    const response = await fetch(`${baseUrl}/solana/wrap/sol`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            amount,  
+        }),
+    });
+
+    return response
+}
