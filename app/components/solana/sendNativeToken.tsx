@@ -1,17 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import  "../style/sendsolanaToken.css";
-import {getAccountTokenBalance, transferToken } from "@/api/wallet";
+import  "../../style/sendsolanaToken.css";
+import {getAccountNativeTokenBalance, transferNaveToken } from "@/api/solana";
 
 
-export const SendSolanaToken = () => {
+export const SendNativeToken = () => {
     const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
     // Get the value of a specific query parameter
     const telegramId = queryParams ? queryParams.get('telegramId') : '';
     const accountId = queryParams ? queryParams.get('account') : '';
-    const mintAdress =  queryParams ? queryParams.get('mintAdress') : '';
 
     const [fromAccount, setFromAccount] = useState('')
     const [toAccount, setToAccount] = useState('')
@@ -20,9 +19,9 @@ export const SendSolanaToken = () => {
     const [showToAccountErr, setShowToAccountErr] = useState(false)
     const [accountCurrect, setAccountCurrect] = useState(false)
 
-    const[tokenName, setTokenName] = useState('')
     const[tokenBalance, setTokenBalance] = useState(0)
-    const[tokenDecimal, setTokenDEcimal] = useState(9)
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
 
     const [amoutError, setAmoutError] = useState(false)
 
@@ -51,56 +50,72 @@ export const SendSolanaToken = () => {
     }
 
     const trnasferTokenHandler = async() => {
-        if(!toAccount) {
-            toast.error("provide reciever account", ), {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 8000
-            };
-            return;
-        }
+        try {       
+            setIsButtonDisabled(true);
+            if(!toAccount) {
+                toast.error("provide reciever account", ), {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                };
+                setIsButtonDisabled(false);
+                return;
+            }
 
-        if(!amount) {
-            toast.error("provide amount", ), {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 8000
-            };
-            return;
-        }
+            if(!amount) {
+                toast.error("provide amount", ), {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                };
+                setIsButtonDisabled(false);
+                return;
+            }
 
-        if (showToAccountErr) {
-            toast.error("provide valid reciever account", ), {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 8000
-            };
-            return;
-        }
+            if (showToAccountErr) {
+                toast.error("provide valid reciever account", ), {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                };
+                setIsButtonDisabled(false);
+                return;
+            }
 
-        if (parseFloat(amount) > tokenBalance) {
-            toast.error("your balance is low", ), {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 8000
-            };
-            return;
-        }
+            if (parseFloat(amount) > tokenBalance) {
+                toast.error("your balance is low", ), {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                };
+                setIsButtonDisabled(false);
+                return;
+            }
 
-        const api = await transferToken(telegramId, mintAdress, toAccount, parseFloat(amount))
+            const api = await transferNaveToken(telegramId, toAccount, parseFloat(amount))
 
-        const response = await api.json()
-        const responseStatus = response.status
+            const response = await api.json()
+            const responseStatus = response.status
 
-        if (!responseStatus) {
-            toast.error(response.error[0].message, {
+            if (!responseStatus) {
+                toast.error(response.error[0].message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 8000
+                });
+                setIsButtonDisabled(false);
+                return;
+            }
+
+            toast.success('Transaction in progress', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 8000
             });
             return;
+        } catch (error) {
+            toast.error("Unable to perform transaction.", ), {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 8000
+            };
+            setIsButtonDisabled(false);
+            console.log('error', error)
+            return
         }
-
-        toast.success('Transaction in progress', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 8000
-        });
-        return;
     }
 
     useEffect( () =>{
@@ -109,11 +124,10 @@ export const SendSolanaToken = () => {
 
     useEffect( () => {
         const getBalance = async() => {
-            const getTokenBalance = await getAccountTokenBalance(telegramId, mintAdress)
+            const getTokenBalance = await getAccountNativeTokenBalance(telegramId)
             const response = await getTokenBalance.json()
-            setTokenBalance(parseFloat(response.data.tokenBalance.balance) / 10**response.data.token.decimal)
-            setTokenName(response.data.token.symbol)
-            setTokenDEcimal(response.data.token.decimal)
+            console.log('me', response)
+            setTokenBalance(parseFloat(response.data.largeUnit))
         }
 
         getBalance()
@@ -147,12 +161,12 @@ export const SendSolanaToken = () => {
                         <div id='near-img'>
                         {/* <Image src={nearLogo} alt="" className='img'/> */}
                         </div>
-                        <h2>{tokenName}</h2>
+                        <h2>Solana</h2>
                     </div>
-                    <p>{tokenBalance}</p>
+                    <p>{tokenBalance}Sol</p>
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={trnasferTokenHandler}>send</button>
+                    <button type='button' onClick={trnasferTokenHandler} disabled={isButtonDisabled} style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>send</button>
                 </div>
             </div>
         </section>

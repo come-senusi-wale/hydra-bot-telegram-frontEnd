@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import  "../style/wrapsol.css";
-import { wrapSol } from "@/api/wallet";
+import  "../../style/wrapsol.css";
+import { wrapSol } from "@/api/solana";
 
 
 export const WrapSol = () => {
@@ -18,6 +18,7 @@ export const WrapSol = () => {
     const updateConfigHandler = async() => {
         try {
             setIsButtonDisabled(true);
+            console.log(1)
 
             if(!amount) {
                 toast.error("Fill all the input provided", ), {
@@ -27,9 +28,14 @@ export const WrapSol = () => {
                 setIsButtonDisabled(false);
                 return;
             }
+
+            console.log(2)
             const api = await wrapSol(telegramId, parseFloat(amount), )
+            console.log(3)
             const response = await api.json()
             const responseStatus = response.status
+
+            console.log(4)
 
             if (!responseStatus) {
                 toast.error(response.error[0].message, {

@@ -1,11 +1,11 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import  "../style/updateConfig.css";
-import { updateSolanaConfig } from "@/api/wallet";
+import  "../../style/updateConfig.css";
+import { updateSolanaConfig } from "@/api/binance";
 
 
-export const SetSolanaConfig = () => {
+export const SetBinanceConfig = () => {
     const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
     // Get the value of a specific query parameter

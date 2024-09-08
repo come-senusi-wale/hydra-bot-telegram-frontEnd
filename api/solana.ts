@@ -2,11 +2,42 @@
 
 // export const baseUrl = 'http://localhost:8081/api/v1'
 // export const baseUrl = 'https://snipper-bot-ancient-dew-8766-dawn-cloud-8655.fly.dev/api/v1'
-export const baseUrl = 'https://consumer-snipper-bot.fly.dev/api/v1'
+// export const baseUrl = 'https://consumer-snipper-bot.fly.dev/api/v1'
+import { baseUrl } from "@/api/baseurl";
 
 // export const createWallet = (body: any) => {
 //     return axiosInstance().post("/create_account", body);
 // }
+
+export const getAccountNativeTokenBalance = async(telegramId: any,) => {
+    const response = await fetch(`${baseUrl}/solana/native/token/balance?telegramId=${telegramId}`, {
+        // method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        // body: JSON.stringify(body),
+    });
+
+    return response
+}
+
+export const transferNaveToken = async(telegramId: any, recipientAddress: string, amount: number) => {
+    const response = await fetch(`${baseUrl}/solana/transfer/native/token`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            recipientAddress,
+            amount
+        }),
+    });
+
+    return response
+}
 
 
 export const getAccountTokenBalance = async(telegramId: any, mintAdress: any) => {

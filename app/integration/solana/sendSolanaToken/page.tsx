@@ -1,5 +1,5 @@
 import { Nav } from "@/app/components/nav";
-import { SendSolanaToken } from "@/app/components/sendSolanaToken";
+import { SendSolanaToken } from "@/app/components/solana/sendSolanaToken";
 
 export default function SendSolana() {
 
