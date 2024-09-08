@@ -53,7 +53,7 @@ export const SendNativeToken = () => {
         try {       
             setIsButtonDisabled(true);
             if(!toAccount) {
-                toast.error("provide reciever account", ), {
+                toast.error("Provide reciever account", ), {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 };
@@ -62,7 +62,7 @@ export const SendNativeToken = () => {
             }
 
             if(!amount) {
-                toast.error("provide amount", ), {
+                toast.error("Provide amount", ), {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 };
@@ -71,7 +71,7 @@ export const SendNativeToken = () => {
             }
 
             if (showToAccountErr) {
-                toast.error("provide valid reciever account", ), {
+                toast.error("Provide valid reciever account", ), {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 };
@@ -80,7 +80,7 @@ export const SendNativeToken = () => {
             }
 
             if (parseFloat(amount) > tokenBalance) {
-                toast.error("your balance is low", ), {
+                toast.error("Your balance is low", ), {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 8000
                 };
@@ -113,7 +113,7 @@ export const SendNativeToken = () => {
                 autoClose: 8000
             };
             setIsButtonDisabled(false);
-            console.log('error', error)
+            console.log('Error', error)
             return
         }
     }
@@ -138,11 +138,11 @@ export const SendNativeToken = () => {
         <section>
             <div id='importAccount' className=''>
                 <div id='from-input'>
-                    <label htmlFor="">from</label>
+                    <label htmlFor="">From</label>
                     <input type="text"  value={fromAccount} readOnly/>
                 </div>
                 <div id='to-input'>
-                    <label htmlFor="">to</label>
+                    <label htmlFor="">To</label>
                     <input className={`${accountCurrect? showToAccountErr? 'outline-none border-b-2 border-red-500 text-red-500' : 'outline-none border-b-2 border-blue-500 text-blue-500' : ''}`} type="text" placeholder='account ID' value={toAccount} onChange={(e) => setToAccount(e.target.value)} onKeyUp={toAccountInputHandler}/>
                     {accountCurrect? 
                         showToAccountErr? 
@@ -152,8 +152,8 @@ export const SendNativeToken = () => {
                     ''}
                 </div>
                 <div id='amount-input'>
-                    <label htmlFor="">amount</label>
-                    <input type="number" placeholder='near token' value={amount} onChange={(e) => setAmount(e.target.value)} onKeyUp={amoutInputHandler}/>
+                    <label htmlFor="">Amount</label>
+                    <input type="number" placeholder='Amount' value={amount} onChange={(e) => setAmount(e.target.value)} onKeyUp={amoutInputHandler}/>
                     {amoutError? <p className='text-red-600'>insufficient balance</p> : ''}
                 </div>
                 <div id='asset'>
@@ -166,7 +166,7 @@ export const SendNativeToken = () => {
                     <p>{tokenBalance}Sol</p>
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={trnasferTokenHandler} disabled={isButtonDisabled} style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>send</button>
+                    <button type='button' onClick={trnasferTokenHandler} disabled={isButtonDisabled} style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>Send</button>
                 </div>
             </div>
         </section>
