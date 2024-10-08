@@ -9,37 +9,67 @@ import { baseUrl } from "@/api/baseurl";
 //     return axiosInstance().post("/create_account", body);
 // }
 
+export const getAccountBinanceNativeTokenBalance = async(telegramId: any,) => {
+    const response = await fetch(`${baseUrl}/binance/balance?telegramId=${telegramId}`, {
+        // method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        // body: JSON.stringify(body),
+    });
 
-// export const getAccountTokenBalance = async(telegramId: any, mintAdress: any) => {
-//     const response = await fetch(`${baseUrl}/solana/token/balance?telegramId=${telegramId}&mintAdress=${mintAdress}`, {
-//         // method: 'GET',
-//         headers: {
-//         'Content-Type': 'application/json',
-//         // Add any other headers as needed
-//         },
-//         // body: JSON.stringify(body),
-//     });
+    return response
+}
 
-//     return response
-// }
+export const transferBinanceNaveToken = async(telegramId: any, recipientAddress: string, amount: number) => {
+    const response = await fetch(`${baseUrl}/binance/transfer/native/token`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            recipientAddress,
+            amount
+        }),
+    });
 
-// export const transferToken = async(telegramId: any,mintAdress: any, recipientAddress: string, amount: number) => {
-//     const response = await fetch(`${baseUrl}/solana/transfer/token`, {
-//         method: 'POST',
-//         headers: {
-//         'Content-Type': 'application/json',
-//         // Add any other headers as needed
-//         },
-//         body: JSON.stringify({
-//             telegramId,
-//             mintAdress,
-//             recipientAddress,
-//             amount
-//         }),
-//     });
+    return response
+}
 
-//     return response
-// }
+
+export const getAccountBinanceTokenBalance = async(telegramId: any, mintAdress: any) => {
+    const response = await fetch(`${baseUrl}/binance/token/balance?telegramId=${telegramId}&mintAdress=${mintAdress}`, {
+        // method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        // body: JSON.stringify(body),
+    });
+
+    return response
+}
+
+export const transferBinanceToken = async(telegramId: any,mintAdress: any, recipientAddress: string, amount: number) => {
+    const response = await fetch(`${baseUrl}/binance/transfer/token`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            mintAdress,
+            recipientAddress,
+            amount
+        }),
+    });
+
+    return response
+}
 
 export const updateSolanaConfig = async(telegramId: any, buyerSlippage: number, takeProfit: number, stopLoss: number, sellSlippage: number, bagToMoon: number, minLiquidity: number, maxLiquidity: number, qouteAmount: number) => {
     const response = await fetch(`${baseUrl}/binance/update/config`, {
@@ -64,18 +94,34 @@ export const updateSolanaConfig = async(telegramId: any, buyerSlippage: number, 
     return response
 }
 
-// export const wrapSol = async(telegramId: any, amount: number) => {
-//     const response = await fetch(`${baseUrl}/solana/wrap/sol`, {
-//         method: 'POST',
-//         headers: {
-//         'Content-Type': 'application/json',
-//         // Add any other headers as needed
-//         },
-//         body: JSON.stringify({
-//             telegramId,
-//             amount,  
-//         }),
-//     });
+export const wrapBnb = async(telegramId: any, amount: number) => {
+    const response = await fetch(`${baseUrl}/binance/wrap/bnb`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            amount,  
+        }),
+    });
 
-//     return response
-// }
+    return response
+}
+
+export const unwrapBnb = async(telegramId: any, amount: number) => {
+    const response = await fetch(`${baseUrl}/binance/unwrap/bnb`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+        },
+        body: JSON.stringify({
+            telegramId,
+            amount,  
+        }),
+    });
+
+    return response
+}

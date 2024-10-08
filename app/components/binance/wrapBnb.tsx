@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import  "../../style/wrapsol.css";
-import { wrapSol } from "@/api/solana";
+import { wrapBnb } from '@/api/binance';
 
 
-export const WrapSol = () => {
+export const WrapBnb = () => {
     const queryParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
     // Get the value of a specific query parameter
@@ -18,7 +18,6 @@ export const WrapSol = () => {
     const updateConfigHandler = async() => {
         try {
             setIsButtonDisabled(true);
-            console.log(1)
 
             if(!amount) {
                 toast.error("Fill all the input provided", ), {
@@ -29,13 +28,9 @@ export const WrapSol = () => {
                 return;
             }
 
-            console.log(2)
-            const api = await wrapSol(telegramId, parseFloat(amount), )
-            console.log(3)
+            const api = await wrapBnb(telegramId, parseFloat(amount), )
             const response = await api.json()
             const responseStatus = response.status
-
-            console.log(4)
 
             if (!responseStatus) {
                 toast.error(response.error[0].message, {
@@ -76,7 +71,7 @@ export const WrapSol = () => {
                    </div>         
                 </div>
                 <div id='submit-btn'>
-                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}   style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>wrap SOL</button>
+                    <button type='button' onClick={updateConfigHandler} disabled={isButtonDisabled}   style={{cursor: isButtonDisabled ? 'not-allowed' : 'pointer'}}>wrap BNB</button>
                 </div>
             </div>
         </section>

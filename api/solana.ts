@@ -5,10 +5,6 @@
 // export const baseUrl = 'https://consumer-snipper-bot.fly.dev/api/v1'
 import { baseUrl } from "@/api/baseurl";
 
-// export const createWallet = (body: any) => {
-//     return axiosInstance().post("/create_account", body);
-// }
-
 export const getAccountNativeTokenBalance = async(telegramId: any,) => {
     const response = await fetch(`${baseUrl}/solana/native/token/balance?telegramId=${telegramId}`, {
         // method: 'GET',
